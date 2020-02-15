@@ -1,0 +1,3 @@
+data-load-files:
+  person-file-1 : sample_v1.csv
+  person-file-2 : sample_v1.tsv
