@@ -1,3 +1,4 @@
-data-load-files:
+data-load:
+  load-on-start-up: true
   persons-cvs-file : sample_v1.csv
   persons-tvs-file : sample_v2.tsv

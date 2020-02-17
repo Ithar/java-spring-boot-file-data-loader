@@ -1,6 +1,5 @@
 package com.malik.ithar.service;
 
-import com.fasterxml.jackson.databind.MappingIterator;
 import com.malik.ithar.dto.PersonDTO;
 import com.malik.ithar.mapper.PersonToEntityMapper;
 import com.malik.ithar.model.PersonEntity;
@@ -9,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +28,12 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void saveAll(MappingIterator<PersonDTO> persons) {
+    public void saveAll(List<PersonDTO> persons) {
 
         List<PersonEntity> entities = new ArrayList<>();
-        try {
 
-            for (PersonDTO person : persons.readAll()) {
-                entities.add(personToEntityMapper.map(person));
-            }
-        } catch (IOException e) {
-            log.error("Failed to read persons list due to:{} ", e.getMessage(), e);
+        for (PersonDTO person : persons) {
+            entities.add(personToEntityMapper.map(person));
         }
 
         personRepository.saveAll(entities);

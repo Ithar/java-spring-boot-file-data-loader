@@ -12,15 +12,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoaderApplicationRunner implements ApplicationRunner {
 
+    private final boolean loadOnStartup;
     private final String commaFile;
     private final String tabFile;
     private final DataLoader dataLoader;
 
     @Autowired
     public DataLoaderApplicationRunner(
-            @Value("${data-load-files.persons-cvs-file:sample_v1.csv}") String commaFile,
-            @Value("${data-load-files.persons-tvs-file:sample_v2.tsv}") String tabFile,
+            @Value("#{new Boolean('${data-load.load-on-start-up:true}')}") boolean loadOnStartup,
+            @Value("${data-load.persons-cvs-file:sample_v1.csv}") String commaFile,
+            @Value("${data-load.persons-tvs-file:sample_v2.tsv}") String tabFile,
             DataLoader dataLoader) {
+        this.loadOnStartup = loadOnStartup;
         this.commaFile = commaFile;
         this.tabFile = tabFile;
         this.dataLoader = dataLoader;
@@ -29,11 +32,15 @@ public class DataLoaderApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        try {
-            dataLoader.load(commaFile,',');
-            dataLoader.load(tabFile,'\t');
-        } catch (Exception e) {
-            log.error("Failed to load files due to:{}", e.getMessage(), e);
+        log.info("Application runner load data files on start-up:{}", loadOnStartup);
+
+        if (loadOnStartup) {
+            try {
+                dataLoader.load(commaFile, ',');
+                dataLoader.load(tabFile, '\t');
+            } catch (Exception e) {
+                log.error("Failed to load files due to:{}", e.getMessage(), e);
+            }
         }
     }
 }

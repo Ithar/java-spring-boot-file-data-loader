@@ -1,0 +1,4 @@
+data-load:
+  load-on-start-up: false
+  persons-cvs-file : sample_v1.csv
+  persons-tvs-file : sample_v2_test.tsv

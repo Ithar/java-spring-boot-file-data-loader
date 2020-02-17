@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.malik.ithar.dto.PersonDTO;
+import com.malik.ithar.exception.BusinessException;
 import com.malik.ithar.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
@@ -22,7 +23,7 @@ public class DataLoader {
         this.personService = personService;
     }
 
-    public void load(String file, char separator) {
+    public int load(String file, char separator) throws BusinessException {
 
         try {
 
@@ -35,10 +36,12 @@ public class DataLoader {
                     .with(schema)
                     .readValues(new ClassPathResource(file).getInputStream());
 
-            personService.saveAll(persons);
+            personService.saveAll(persons.readAll());
 
+            return persons.readAll().size();
         } catch (IOException e) {
             log.error("CVS loader failed due to: {}", e.getMessage(), e);
+            throw new BusinessException("CVS loader failed due to:" + e.getMessage());
         }
 
     }
