@@ -3,12 +3,12 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.12
 
-commands:
-  codecov-command:
-    steps:
-      - run:
-        name: Send to CodeCov
-        command: bash <(curl -s https://codecov.io/bash)
+#commands:
+#  codecov-command:
+#    steps:
+#      - run:
+#        name: Send to CodeCov
+#        command: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   maven_test:
