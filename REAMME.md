@@ -14,13 +14,13 @@ Working with docker-compose to create a Drupal site with postgres DB in the back
 
 Stack  | version |
 --- | --- |  
-*Java* | 1.11 
+*Java* | 1.8
 *SpringBoot* |  2.2.4.RELEASE
 *Frontend* | n/a 
 *DB* | h2-database (in memory)
 *Server* | Tomcat (embedded)
 *Build Tool* | Maven
-*CI* | CircleCI  
+*CI* | CircleCI 2.1 
 *Code Coverage* | Codecov
 
 ## Application Run
