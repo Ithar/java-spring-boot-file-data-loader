@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -31,14 +32,16 @@ public class DataLoader {
                     .schemaFor(PersonDTO.class)
                     .withColumnSeparator(separator);
 
-            MappingIterator<PersonDTO> persons = new CsvMapper()
+            MappingIterator<PersonDTO> personLines = new CsvMapper()
                     .readerFor(PersonDTO.class)
                     .with(schema)
                     .readValues(new ClassPathResource(file).getInputStream());
 
-            personService.saveAll(persons.readAll());
+            List<PersonDTO> persons = personLines.readAll();
 
-            return persons.readAll().size();
+            personService.saveAll(persons);
+
+            return persons.size();
         } catch (IOException e) {
             log.error("CVS loader failed due to: {}", e.getMessage(), e);
             throw new BusinessException("CVS loader failed due to:" + e.getMessage());
