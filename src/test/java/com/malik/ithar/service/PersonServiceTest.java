@@ -9,12 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,18 +42,45 @@ class PersonServiceTest {
         verify(personRepository, times(1)).findAll();
     }
 
-//    @Test
-//    void saveAll() {
-//
-//        // Given
-//        List<PersonDTO> persons  = new ArrayList<>();
-//        List<PersonEntity> entities = new ArrayList<>();
-//
-//        // When
-//        doNothing().when(personRepository).saveAll(entities);
-//        personService.saveAll(persons);
-//
-//        // Then
-//        verify(personRepository, times(0)).saveAll(entities);
-//    }
+    @Test
+    void saveAll() {
+
+        // Given
+        PersonDTO person = new PersonDTO();
+        person.setDeptRegion("Test Region");
+        person.setDeptCode(11D);
+        person.setAge(28);
+        person.setDeptName("Test Dept");
+        person.setFirstName("Jane");
+        person.setLastName("Doe");
+
+        List<PersonDTO> persons = new ArrayList<>();
+        persons.add(person);
+
+        List<PersonEntity> entities = new ArrayList<>();
+        entities.add(new PersonEntity());
+
+        // When
+        when(personToEntityMapper.map(person)).thenReturn(new PersonEntity());
+        when(personRepository.saveAll(anyList())).thenReturn(entities);
+        personService.saveAll(persons);
+
+        // Then
+        verify(personRepository, times(1)).saveAll(anyList());
+    }
+
+    @Test
+    void saveAll_Empty() {
+
+        // Given
+        List<PersonDTO> persons = new ArrayList<>();
+
+        // When
+        personService.saveAll(persons);
+
+        // Then
+        verify(personRepository, times(0)).saveAll(anyList());
+    }
+
+
 }
