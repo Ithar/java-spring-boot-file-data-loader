@@ -36,7 +36,10 @@ public class PersonService {
             entities.add(personToEntityMapper.map(person));
         }
 
-        personRepository.saveAll(entities);
+        if (!entities.isEmpty()) {
+            personRepository.saveAll(entities);
+            log.info("Saved {} entities.", entities.size());
+        }
     }
 
 }
