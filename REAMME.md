@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/Ithar/java-spring-boot-file-data-loader/tree/master.svg?style=svg)](https://circleci.com/gh/Ithar/java-spring-boot-file-data-loader/tree/master)
 
-
+[![codecov](https://codecov.io/gh/Ithar/java-spring-boot-file-data-loader/branch/master/graph/badge.svg)](https://codecov.io/gh/Ithar/java-spring-boot-file-data-loader)
 
 # java-spring-boot-file-data-loaders
 Project loads cvs and tsv files, uses Map Struct to covert to entities  
