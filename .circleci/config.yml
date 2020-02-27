@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  maven: codecov/codecov@1.0.5
+  codecov: codecov/codecov@1.0.5
 
 jobs:
   build:
