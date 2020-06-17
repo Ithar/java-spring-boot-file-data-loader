@@ -5,8 +5,6 @@
 # java-spring-boot-file-data-loaders
 Project loads cvs and tsv files, uses Map Struct to covert to entities  
 
-Working with docker-compose to create a Drupal site with postgres DB in the background
-
 #### Features 
 - Jackson CsvMapper Data Formatter
 - MapStruct
@@ -28,7 +26,9 @@ Stack  | version |
 *Code Coverage* | Codecov
 
 ## Application Run
-
+Spring Boot Main:
+ 
+`com.malik.ithar.Application`
   
 ## Application URL
 http://localhost:8080/
